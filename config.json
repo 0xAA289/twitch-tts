@@ -1,0 +1,10 @@
+{
+ "Channel": "Anomaly",
+ "Language": "English",
+ "Whitelist": {
+  "Enabled": false,
+  "List": [
+   "Strangeverse"
+  ]
+ }
+}

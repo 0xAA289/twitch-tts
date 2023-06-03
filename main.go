@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -39,25 +38,16 @@ func deleteFilesInDirectory(dirPath string) error {
 }
 
 func main() {
-	reader := bufio.NewReader(os.Stdin)
-	fmt.Println("TwitchTTS Project by Strange")
+	RUNTIME.client = twitch.NewAnonymousClient()
+	RUNTIME.speechManager = htgotts.Speech{Folder: "audio", Language: voices.English, Handler: &handlers.Native{}}
 
-	fmt.Print("Enter Twitch Name: ")
-	name, _ := reader.ReadString('\n')
-
-	client := twitch.NewAnonymousClient()
-	speech := htgotts.Speech{Folder: "audio", Language: voices.English, Handler: &handlers.Native{}}
-
-	client.OnPrivateMessage(func(message twitch.PrivateMessage) {
+	RUNTIME.client.OnPrivateMessage(func(message twitch.PrivateMessage) {
 		fmt.Println(message.User.Name + " says: " + message.Message)
-		speech.Speak(message.User.Name + " says: " + message.Message)
-		deleteFilesInDirectory("audio")
+		// speech.Speak(message.User.Name + " says: " + message.Message)
+		// deleteFilesInDirectory("audio")
 	})
 
-	client.Join(name)
+	go RUNTIME.client.Connect()
 
-	err := client.Connect()
-	if err != nil {
-		panic(err)
-	}
+	gui()
 }
