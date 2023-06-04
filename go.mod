@@ -3,7 +3,9 @@ module TwitchTTS
 go 1.20
 
 require (
+	fyne.io/fyne v1.4.3
 	fyne.io/fyne/v2 v2.3.4
+	github.com/gempir/go-twitch-irc v1.1.0
 	github.com/gempir/go-twitch-irc/v4 v4.0.0
 	github.com/hegedustibor/htgo-tts v0.0.0-20230402053941-cd8d1a158135
 )
